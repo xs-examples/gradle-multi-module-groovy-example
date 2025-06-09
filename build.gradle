@@ -1,0 +1,68 @@
+// 插件
+plugins {
+    id 'idea'
+    id 'java'
+    id 'org.springframework.boot' version '3.5.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+jar.enabled = false
+bootJar.enabled = false
+
+// 所有模块有效
+allprojects {
+    group = 'com.xs'
+    version = '0.0.1-SNAPSHOT'
+
+    // 配置字符编码
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+    }
+
+    // 配置JDK
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(JavaVersion.VERSION_21.majorVersion)
+        }
+    }
+
+    // 配置仓库
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/public' }
+    }
+}
+
+// 配置子模块
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    jar.enabled = true
+    bootJar.enabled = false
+
+    dependencyManagement {
+        dependencies {
+            dependency 'cn.hutool:hutool-all:5.8.36'
+            dependency 'org.apache.commons:commons-lang3:3.17.0'
+            dependency 'org.apache.httpcomponents:httpclient:4.5.14'
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    // 子模块测试使用 JUnit
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}

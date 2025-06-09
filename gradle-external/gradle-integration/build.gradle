@@ -1,0 +1,4 @@
+dependencies {
+    api project(':gradle-external:gradle-util')
+    api project(':gradle-external:gradle-client')
+}

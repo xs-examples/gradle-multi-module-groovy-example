@@ -1,0 +1,4 @@
+dependencies {
+    api 'cn.hutool:hutool-all'
+    api 'org.apache.commons:commons-lang3'
+}

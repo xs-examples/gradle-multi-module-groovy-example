@@ -1,0 +1,15 @@
+rootProject.name = 'gradle-multi-module-groovy-example'
+
+// 扩展模块
+include 'gradle-external'
+include 'gradle-external:gradle-common'
+include 'gradle-external:gradle-util'
+include 'gradle-external:gradle-client'
+include 'gradle-external:gradle-integration'
+
+// 业务模块
+include 'gradle-servers'
+include 'gradle-servers:gradle-server1'
+include 'gradle-servers:gradle-server2'
+include 'gradle-servers:gradle-server3'
+
